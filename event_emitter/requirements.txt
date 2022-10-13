@@ -1,0 +1,2 @@
+amqp
+python-socketio

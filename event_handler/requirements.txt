@@ -1,0 +1,7 @@
+amqp
+python-dotenv
+flask
+flask-sqlalchemy
+psycopg2
+celery
+flask_socketio
