@@ -1,4 +1,5 @@
 from app.models.models import Room
+from app.models.models import Building
 from app.services.abstract_service import AbstractService
 from app.repo.room_repo import RoomRepository
 from app.repo.building_repo import BuildingRepository
@@ -25,7 +26,7 @@ class RoomService(AbstractService):
             room.building_id = building.id
             return room
         else:
-            return {"error": "Building not found"}
+            return self.repository().insert(room)
         
     def get_all(self):
         return self.repository().find_all()
@@ -42,7 +43,14 @@ class RoomService(AbstractService):
         if room is not None:
             room.name = name
             room.floor_number = floor_number
-            room.building_id = building_id
+            
+            building = BuildingRepository().find_by_id(building_id)
+
+            if building is not None:
+                building = Building(id=building_id)
+                BuildingRepository().insert(building)
+                room.building_id = building.id
             return self.repository().update(room)
         else:
-            return {"error": "Room not found"}
+            room = Room(id=id, name=name, floor_number=floor_number)
+            return self.repository().insert(room)

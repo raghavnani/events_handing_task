@@ -33,7 +33,8 @@ class BuildingService(AbstractService):
             building.type = type
             return self.repository().update(building)
         else:
-            return {"error": "Building not found"}
+            building = Building(id=id, name=name, type=type)
+            return self.repository().insert(building)
 
     def get_most_offices(self, type="Healthcare"):
 
