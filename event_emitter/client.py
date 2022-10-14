@@ -3,15 +3,12 @@ import json
 import amqp
 import os
 
-broker="20.218.71.141"  # e-mail might list a different ip
-user="b1e7e6eb"
-password="5e49afa6d1c4a77704974e2c33beb2fc"
-queue=user  # The queue name is set to be the same as the user ID
-
 SERVER_CONNECTION = os.getenv("SERVER_CONNECTION")
 
-
-print(SERVER_CONNECTION)
+broker = os.getenv("BROKER")
+user = os.getenv("USER")
+password = os.getenv("PASSWORD")
+queue = user
 
 
 sio = socketio.Client()
@@ -45,4 +42,4 @@ def connect():
 def disconnect():
     print('disconnected from server')
  
-sio.connect(f'http://127.0.0.1:4000')
+sio.connect('http://localhost:4000')
