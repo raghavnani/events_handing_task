@@ -16,30 +16,27 @@ room_service = RoomService()
 @socketio.on('room')
 def room_message(data):
 
-    print('received json: ', data['response'])
-
     room = data['response']["payload"]
 
     if data['response']['action'] == 'created':
         room_service.create_room(room['room_id'], room['name'], room['floor_number'], room['building_id'])
     elif data['response']['action'] == 'deleted':
         pass
-        #room_service.delete_by_id(room['room_id'])
+        room_service.delete_by_id(room['room_id'])
     elif data['response']['action'] == 'updated':
         room_service.update_by_id(room['room_id'], room['name'], room['floor_number'], room['building_id'])
 
-# @socketio.on('building')
-# def building_message(data):
+@socketio.on('building')
+def building_message(data):
 
-#     building = data['response']["payload"]
+    building = data['response']["payload"]
 
-#     if data['response']['action'] == 'created':
-#         resp = building_service.create_building(building['building_id'], building['name'], building['type'])
-#     elif data['response']['action'] == 'deleted':
-#         pass
-#         #resp =building_service.delete_by_id(building['building_id'])
-#     elif data['response']['action'] == 'updated':
-#         resp = building_service.update_by_id(building['building_id'], building['name'], building['type'])
+    if data['response']['action'] == 'created':
+        resp = building_service.create_building(building['building_id'], building['name'], building['type'])
+    elif data['response']['action'] == 'deleted':
+        resp =building_service.delete_by_id(building['building_id'])
+    elif data['response']['action'] == 'updated':
+        resp = building_service.update_by_id(building['building_id'], building['name'], building['type'])
 
 if __name__ == '__main__':
 

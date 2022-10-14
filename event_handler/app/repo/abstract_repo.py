@@ -22,6 +22,13 @@ class AbstractRepository():
     def get(self, id):
         return db.session.query(self.entity()).get(id)
 
+    def delete_by_id(self, id):
+        entity = self.find_by_id(id)
+        if entity is not None:
+            return self.delete(entity)
+        else:
+            return {"error": "Entity not found"}
+
     def update(self, entity):
         db.session.merge(entity)
         db.session.commit()
