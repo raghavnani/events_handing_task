@@ -41,8 +41,11 @@ services:
     container_name: client
     command: sh -c "python client.py"  # wait for db, then run
     environment:
+      - BROKER=${BROKER}
+      - USER=${USER}
+      - PASSWORD=${PASSWORD}
+      - QUEUE=${USER}
       - SERVER_CONNECTION=server
-
     depends_on:
       - server
 
