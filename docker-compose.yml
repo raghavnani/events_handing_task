@@ -46,11 +46,5 @@ services:
     depends_on:
       - server
 
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   container_name: frontend
-  #   ports:
-  #     - 3000
 
 
